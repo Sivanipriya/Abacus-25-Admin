@@ -1,3 +1,5 @@
+# ABACUS-25
+This repository contains the frontend developed using React for my department's symposium website.
 
 # Getting Started with Create React App
 
