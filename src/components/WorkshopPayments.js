@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "../api/axios";
 import ExportToExcel from "./ExportToExcel";
+const Abacus_BASE_URL = "https://api.abacus.org.in"
+//const Abacus_BASE_URL = `http://localhost:3001`;
 export default function WorkshopPayments() {
   const [data, setData] = useState([]);
   const [workshopId, setWorkshopId] = useState(null);
-  const [hostCollege, setHostCollege] = useState("");
+  //const [hostCollege, setHostCollege] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [filter, setFilter] = useState("abacusId");
   const [filterData, setFilterData] = useState("");
@@ -32,7 +34,7 @@ export default function WorkshopPayments() {
         "/admin/workshop-payment-list",
         {
           workshopId: parseInt(workshopId),
-          hostCollege: hostCollege,
+          //hostCollege: hostCollege,
         },
         {
           headers: {
@@ -63,15 +65,21 @@ export default function WorkshopPayments() {
           <option disabled selected>
             --Select--
           </option>
-          <option value={1}>Design for Impact: Power of UX</option>
-          <option value={2}>Workshop on Generative AI</option>
+          <option value={1}>
+            Cloud Computing Essentials in the Era of AI
+          </option>
+          <option value={2}>
+            Mastering MCP - Building Context-Aware AI Apps
+          </option>
+          <option value={0}>BULK REGISTER (Both Workshops)</option>
+          {/* <option value={3}>Linux Networking Essentials</option> */}
         </select>
       </div>
-      <div className="flex flex-row items-center mx-10 my-5">
+      {/* <div className="flex flex-row items-center mx-10 my-5">
         <p className="text-xl font-bold mr-5">Select Host College: </p>
         <select
           className="select select-bordered w-full max-w-xs"
-          onChange={(e) => setHostCollege(e.target.value)}
+          //onChange={(e) => setHostCollege(e.target.value)}
         >
           <option disabled selected>
             --Select--
@@ -84,7 +92,7 @@ export default function WorkshopPayments() {
             J.J. College of Engineering and Technology,Tiruchirappalli
           </option>
         </select>
-      </div>
+      </div> */}
       <button
         className="cursor-pointer ml-10  px-6 py-2 tracking-wide text-white font-bold bg-gradient-to-r from-[#702b2b] via-[#9d0505] to-[#8a1818] rounded-2xl shadow-lg hover:shadow-xl focus:outline-none transition-transform duration-200 transform hover:scale-105 active:scale-95"
         onClick={fetchData}
@@ -95,7 +103,7 @@ export default function WorkshopPayments() {
         <>
           <ExportToExcel
             apiData={data}
-            fileName={`Workshop_Payments_${workshopId}_${hostCollege}`}
+            fileName={`Workshop_Payments_${workshopId}_2025`}
           />
           <div className="flex flex-row items-center m-2">
             <div className="dropdown">
@@ -185,7 +193,7 @@ export default function WorkshopPayments() {
                 </tr>
               </thead>
               <tbody>
-                {filteredData.map((item, index) => (
+                {(filteredData||[]).map((item, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{item.name}</td>
@@ -196,7 +204,8 @@ export default function WorkshopPayments() {
                     <td>{item.paymentMobile}</td>
                     <td>
                       <a
-                        href={`${process.env.REACT_APP_API_BASE_URL}/images/${item.screenshot}`}
+                        href={`${Abacus_BASE_URL}/images/${item.screenshot}`}
+                        target="_blank"
                       >
                         Click to view
                       </a>

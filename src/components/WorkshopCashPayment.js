@@ -8,7 +8,7 @@ const WorkshopCashPayment = () => {
   const [filter, setFilter] = useState("abacusId");
   const [filterData, setFilterData] = useState("");
   const [workshopId, setWorkshopId] = useState(null);
-  const [hostCollege, setHostCollege] = useState("");
+  //const [hostCollege, setHostCollege] = useState("");
   const handleFilterDataChange = (e) => {
     const newFilterData = e.target.value.toLowerCase();
     setFilterData(newFilterData);
@@ -32,7 +32,7 @@ const WorkshopCashPayment = () => {
         "/admin/workshop-unpaid",
         {
           workshopId: parseInt(workshopId),
-          hostCollege: hostCollege,
+          //hostCollege: hostCollege,
         },
         {
           headers: {
@@ -63,15 +63,16 @@ const WorkshopCashPayment = () => {
           <option disabled selected>
             --Select--
           </option>
-          <option value={1}>Design for Impact: Power of UX</option>
-          <option value={2}>Workshop on Generative AI</option>
+          <option value={1}>Emergence of AI Engineers and Evolution of Vibe coding</option>
+          <option value={2}>API & Kubernetes: The Dynamic Duo of Modern Tech</option>
+          <option value={3}>Linux Networking Essentials</option>
         </select>
       </div>
-      <div className="flex flex-row items-center mx-10 my-5">
+      {/* <div className="flex flex-row items-center mx-10 my-5">
         <p className="text-xl font-bold mr-5">Select Host College: </p>
         <select
           className="select select-bordered w-full max-w-xs"
-          onChange={(e) => setHostCollege(e.target.value)}
+          //onChange={(e) => setHostCollege(e.target.value)}
         >
           <option disabled selected>
             --Select--
@@ -84,7 +85,7 @@ const WorkshopCashPayment = () => {
             J.J. College of Engineering and Technology,Tiruchirappalli
           </option>
         </select>
-      </div>
+      </div> */}
       <button
         className="btn btn-primary ml-10 cursor-pointer px-4 py-2 tracking-wide text-white font-bold bg-gradient-to-r from-[#702b2b] via-[#9d0505] to-[#8a1818] rounded-2xl shadow-lg hover:shadow-xl focus:outline-none transition-transform duration-200 transform hover:scale-105 active:scale-95"
         onClick={fetchData}
@@ -142,7 +143,7 @@ const WorkshopCashPayment = () => {
               onChange={handleFilterDataChange}
             />
           </div>
-          {filteredData.map((d) => (
+          {(filteredData||[]).map((d) => (
             <Card2
               data={d}
               workshopId={workshopId}

@@ -26,7 +26,7 @@ const Card3 = ({ data, fullData, setData, fullFilteredData, setFilteredData }) =
                 console.log('Data ID:', data.id); // Ensure this is valid
 
                 // Update query status to 'replied' in the backend using PUT
-                await axios.put('/admin/set-query-replied', {
+                await axios.post('/admin/set-query-replied', {
                     id: data.id
                 }, {
                     headers: {
@@ -54,8 +54,8 @@ const Card3 = ({ data, fullData, setData, fullFilteredData, setFilteredData }) =
         <div className="collapse collapse-arrow bg-base-200">
 
             {/* Change the input type from 'radio' to 'checkbox' */}
-            <input type="checkbox" className='text-white' />
-            <div className="collapse-title text-md text-white font-medium z-0">
+            <input type="checkbox"/>
+            <div className="collapse-title text-md font-medium z-0">
 
                 {data.title}
             </div>

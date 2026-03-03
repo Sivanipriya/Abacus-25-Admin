@@ -5,10 +5,10 @@ import ExportToExcel from "./ExportToExcel";
 export default function WorkshopList() {
   const [data, setData] = useState([]);
   const [workshopId, setWorkshopId] = useState(null);
-  const [hostCollege, setHostCollege] = useState("");
+  //const [hostCollege, setHostCollege] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-  
+
   const fetchData = async () => {
     try {
       Swal.fire({
@@ -20,8 +20,8 @@ export default function WorkshopList() {
         "/admin/workshop-registration-list",
         {
           workshopId: parseInt(workshopId),
-          hostCollege: hostCollege,
-          paymentStatus: paymentStatus,
+          //hostCollege: hostCollege,
+          //paymentStatus: paymentStatus,
         },
         {
           headers: {
@@ -52,7 +52,7 @@ export default function WorkshopList() {
       setFilteredData(data.filter((item) => item.status === status));
     }
   };
-  
+
   return (
     <>
       <div className="flex flex-row items-center mx-10 my-5">
@@ -64,16 +64,23 @@ export default function WorkshopList() {
           <option disabled selected>
             --Select--
           </option>
-          <option value={1}>Design for Impact: Power of UX</option>
-          <option value={2}>Workshop on Generative AI</option>
-          <option value={3}>Placement Session</option>
+            "1": "Cloud Computing Essentials in the Era of AI",
+            "2": "Mastering MCP - Building Context-Aware AI Apps"
+          <option value={1}>
+            Cloud Computing Essentials in the Era of AI
+          </option>
+          <option value={2}>
+            Mastering MCP - Building Context-Aware AI Apps
+          </option>
+          <option value={0}>BULK REGISTER (Both Workshops)</option>
+          {/* <option value={3}>Linux Networking Essentials</option> */}
         </select>
       </div>
-      <div className="flex flex-row items-center mx-10 my-5">
+      {/* <div className="flex flex-row items-center mx-10 my-5">
         <p className="text-xl font-bold mr-5">Select Host College: </p>
         <select
           className="select select-bordered w-full max-w-xs"
-          onChange={(e) => setHostCollege(e.target.value)}
+          //onChange={(e) => setHostCollege(e.target.value)}
         >
           <option disabled selected>
             --Select--
@@ -86,7 +93,7 @@ export default function WorkshopList() {
             J.J. College of Engineering and Technology,Tiruchirappalli
           </option>
         </select>
-      </div>
+      </div> */}
       <div className="flex flex-row items-center mx-10 my-5">
         <p className="text-xl font-bold mr-5">Select Payment Status: </p>
         <select
@@ -109,7 +116,7 @@ export default function WorkshopList() {
         <div className="overflow-x-auto">
           <ExportToExcel
             apiData={filteredData}
-            fileName={`Workshop_${workshopId}_${hostCollege}`}
+            fileName={`Workshop_${workshopId}_2025`}
           />
           <table className="table">
             <thead>
@@ -128,7 +135,7 @@ export default function WorkshopList() {
               </tr>
             </thead>
             <tbody>
-              {filteredData.map((item, index) => (
+              {(filteredData || []).map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.abacusId}</td>

@@ -59,7 +59,7 @@ const Queries = () => {
         </div>
         <input type="text"  placeholder={filter === "" ? `Select filter and type here` : `Type ${filter} Here`} className="text-red-800 input input-bordered w-full" value={filterData} onChange={handleFilterDataChange} />
       </div>
-      {filteredData.map((d) => (
+      {(filteredData||[]).map((d) => (
         <Card3 data={d} fullData={data} setData={setData} fullFilteredData={filteredData} setFilteredData={setFilteredData}/>
       ))}
     </div>

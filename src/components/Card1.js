@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "../api/axios";
-
+const Abacus_BASE_URL = "https://api.abacus.org.in";
+//const Abacus_BASE_URL = `http://localhost:3001`;
 const Card1 = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,7 +41,11 @@ const Card1 = ({ data }) => {
         );
         Swal.close();
         window.location.reload();
-        await Swal.fire({ title: "Verification successful", icon: "success" });
+        await Swal.fire({
+          title: "Verification successful",
+          icon: "success",
+          timer: 3000,
+        });
       } catch (error) {
         Swal.close();
         await Swal.fire({
@@ -83,7 +88,11 @@ const Card1 = ({ data }) => {
         );
         Swal.close();
         window.location.reload();
-        await Swal.fire({ title: "Verification successful", icon: "success" });
+        await Swal.fire({
+          title: "Verification successful",
+          icon: "success",
+          timer: 4000,
+        });
       } catch (error) {
         Swal.close();
         await Swal.fire({
@@ -107,15 +116,16 @@ const Card1 = ({ data }) => {
         className="collapse-title text-xl font-medium z-0"
         onClick={toggleAccordion}
       >
-        {data.abacusId + "   " + data.name}
+        {data.users[0].abacusId + "   " + data.users[0].name}
       </div>
       {isOpen && (
         <div className="collapse-content">
-          <div className="card w-full bg-neutral text-neutral-content m-2">
+          <div className="card w-full bg-neutral text-neutral-content m-0">
             <div className="card-body items-center text-center">
-              <figure className="px-10 pt-10">
+              <figure className="px-0 pt-10">
                 <img
-                  src={`${process.env.REACT_APP_API_BASE_URL}/images/${data.screenshot}`}
+                  src={`${Abacus_BASE_URL}/images/${data.screenshot}`}
+                  //src={`${Abacus_BASE_URL}/images/${data.screenshot}`}
                   width="100px"
                   onClick={() =>
                     document
@@ -128,7 +138,7 @@ const Card1 = ({ data }) => {
               </figure>
               <table className="border-collapse border border-slate-500">
                 <tbody>
-                  <tr>
+                  {/* <tr>
                     <td className="border p-2">AbacusId</td>
                     <td className="border p-2">{data.abacusId}</td>
                   </tr>
@@ -139,7 +149,7 @@ const Card1 = ({ data }) => {
                   <tr>
                     <td className="border p-2">Mobile</td>
                     <td className="border p-2">{data.mobile}</td>
-                  </tr>
+                  </tr> */}
                   <tr>
                     <td className="border p-2">Workshop Name</td>
                     <td className="border p-2">{data.workshopName}</td>
@@ -152,10 +162,22 @@ const Card1 = ({ data }) => {
                     <td className="border p-2">Payment Mobile</td>
                     <td className="border p-2">{data.paymentMobile}</td>
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <td className="border p-2">Host College</td>
-                    <td className="border p-2">{data.hostCollege}</td>
-                  </tr>
+                    <td className="border p-2">{data.users[0].hostCollege}</td>
+                  </tr> */}
+                  {(data.users || []).map((user) => {
+                    return (
+                      <tr>
+                        <td className="border p-2">User</td>
+                        <td className="border p-2">
+                          {user.name} <br />
+                          {user.abacusId} <br />
+                          {user.mobile}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
               <div className="card-actions justify-end">
@@ -171,7 +193,8 @@ const Card1 = ({ data }) => {
           <dialog id={`modal_${data.transactionId}`} className="modal">
             <div className="modal-box">
               <img
-                src={`${process.env.REACT_APP_API_BASE_URL}/images/${data.screenshot}`}
+                src={`${Abacus_BASE_URL}/images/${data.screenshot}`}
+                //src={`${Abacus_BASE_URL}/images/${data.screenshot}`}
                 alt="Screenshot"
                 className="rounded-xl"
               />
